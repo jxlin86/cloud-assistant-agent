@@ -1,0 +1,2 @@
+cloud-agent-assistant-web
+A browser agent v0.3.2 for Windows and Linux (including Oracle Linux 9), managing OCI, Microsoft Azure, Google Cloud, and Amazon Web Services (AWS) using natural language. OCI tasks use the bundled OCI Operations v0.1.4 engine; the other clouds have separate scoped planners and executors. All planning uses the configured OCI-hosted openai.gpt-oss-120b model through the Agents SDK. The original command-line agent remains separate.
