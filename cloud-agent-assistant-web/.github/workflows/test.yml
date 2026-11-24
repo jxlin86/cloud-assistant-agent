@@ -1,0 +1,25 @@
+name: Cross-platform tests
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python manage.py install
+      - run: .venv/Scripts/python.exe -m pip install setuptools wheel
+      - run: .venv/Scripts/python.exe -m pytest -q
+      - run: .venv/Scripts/python.exe -m pip check
+  oracle-linux-9:
+    runs-on: ubuntu-latest
+    container: oraclelinux:9
+    steps:
+      - run: dnf install -y git tar gzip systemd python3.12 python3.12-pip python3.12-devel gcc make libffi-devel openssl-devel
+      - uses: actions/checkout@v4
+      - run: python3.12 manage.py install
+      - run: .venv/bin/python -m pip install setuptools wheel
+      - run: bash -n Install-CloudAgentWeb.sh Start-CloudAgentWeb.sh Stop-CloudAgentWeb.sh Install-UserService.sh
+      - run: .venv/bin/python -m pytest -q
+      - run: .venv/bin/python -m pip check

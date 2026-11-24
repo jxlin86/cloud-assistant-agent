@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cloud-agent-assistant-web"
+version = "0.3.2"
+description = "Local browser agent for OCI, Azure, Google Cloud, and AWS"
+requires-python = ">=3.12"
+dependencies = ["fde-oci-agent==0.1.4", "starlette==1.10.0", "uvicorn==0.54.0"]
+
+[project.optional-dependencies]
+test = ["pytest==9.2.0"]
+
+[project.scripts]
+cloud-agent-web = "cloud_agent_assistant_web.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cloud_agent_assistant_web = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

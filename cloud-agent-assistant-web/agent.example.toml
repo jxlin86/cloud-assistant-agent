@@ -1,0 +1,39 @@
+[oci]
+profile = "OCIPRJ"
+config_file = "~/.oci/config"
+region = "us-ashburn-1"
+compartment_id = "" # Set your own compartment OCID before use
+
+[model]
+# Selected primary model for multi-cloud planning, tool use, and error diagnosis.
+# The [oci] connection authenticates this OCI-hosted model for every execution cloud.
+# Decision reviewed 2026-11-22; retain the already verified OCI-hosted connection.
+name = "openai.gpt-oss-120b"
+# Oracle lists Chicago for on-demand gpt-oss-120b. OCI task region is independent.
+region = "us-chicago-1"
+# Optional: OCI Generative AI project OCID, if your endpoint requires one.
+project_id = ""
+# "profile" signs requests with the selected OCI profile. "api_key" uses
+# OCI_GENAI_API_KEY from the local process environment, never an OpenAI key.
+auth = "profile"
+
+# Development defaults for new Autonomous Serverless databases. Every creation
+# displays the effective flags and still requires human acceptance.
+[database_defaults]
+compute_model = "ECPU"
+compute_count = 2
+data_storage_size_in_gbs = 20
+license_model = "LICENSE_INCLUDED"
+is_free_tier = false
+is_auto_scaling_enabled = false
+is_auto_scaling_for_storage_enabled = false
+
+[execution]
+timeout_seconds = 180
+wait_timeout_seconds = 3600
+poll_interval_seconds = 15
+max_corrections = 3
+max_stages = 8
+max_steps_per_stage = 12
+max_model_turns = 16
+state_dir = ".fde-agent"

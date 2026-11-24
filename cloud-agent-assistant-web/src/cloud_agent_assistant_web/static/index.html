@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cloud Agent Assistant</title>
+  <link rel="stylesheet" href="/static/app.css"><script src="/static/app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/"><span class="brand-icon">CA</span><span>Cloud Agent<span class="brand-small">ASSISTANT WEB</span></span></a>
+    <button id="new-task" class="new-task">＋ New task</button>
+    <div class="section-label">TASK HISTORY <span id="task-count">0</span></div>
+    <nav id="history" aria-label="Task history"><p class="empty-history">Your tasks will appear here.</p></nav>
+    <div class="sidebar-footer"><span class="dot"></span><span id="connection-state">Connecting to service</span><span id="version"></span></div>
+  </aside>
+  <main>
+    <header class="topbar"><span>Workspace <span class="slash">/</span> <span id="workspace-cloud">Cloud Operations</span></span><span class="local-pill"><span class="dot"></span> LOCAL SERVICE</span></header>
+    <div class="page">
+      <div class="page-title"><div><div class="eyebrow">CLOUD OPERATIONS</div><h1>What would you like to do?</h1><p>Work with OCI, Azure, Google Cloud, or AWS. Review changes and follow progress here.</p></div><span id="cloud-mark" class="agent-mark">OCI</span></div>
+      <section class="card composer" aria-label="Create a task">
+        <div class="connection-grid">
+          <label>Cloud provider<select id="cloud" aria-label="Cloud provider"></select></label>
+          <label><span id="profile-label">OCI profile</span><input id="profile" list="profile-options" type="text" spellcheck="false" autocomplete="off"><datalist id="profile-options"></datalist></label>
+          <label>Region / location<input id="region" type="text" spellcheck="false" autocomplete="off"></label>
+          <label class="compartment-label"><span id="scope-label">Compartment name and OCID</span><input id="compartment" type="text" spellcheck="false" autocomplete="off"><span id="compartment-name" class="compartment-name" aria-live="polite" hidden></span></label>
+        </div>
+        <p id="cloud-connection-note" class="cloud-connection-note"></p>
+        <label class="request-label" for="request">Your task</label>
+        <textarea id="request" rows="3" placeholder="For example, list all databases in fde-sandbox…" maxlength="16000"></textarea>
+        <div class="examples"><span>Try a task</span><button data-example="List all databases in fde-sandbox.">List databases</button><button data-example="Show which tenancy is connected.">Check tenancy</button><button data-example="Show the status of the Vault named fde-vault in fde-sandbox.">Check Vault status</button></div>
+        <div class="composer-bottom"><label class="checkbox"><input type="checkbox" id="plan-only"> Plan only</label><span class="keyboard-hint">Ctrl + Enter</span><button id="run-task" class="primary">Run task <span>↗</span></button></div>
+      </section>
+      <div class="model-row"><span class="dot"></span><span id="model">OCI Generative AI</span><span class="divider">|</span><span>Read-only tasks run automatically. Changes require your approval.</span></div>
+      <div id="error" role="alert" hidden></div>
+      <section id="welcome" class="welcome"><span class="welcome-symbol">◇</span><h2>A clear view of every operation</h2><p>Your plan, approvals, status checks, and results will appear here.<br>You can leave this page open while the service works.</p></section>
+      <section id="task-panel" class="card task-panel" hidden>
+        <div class="task-heading"><div><div class="eyebrow">CURRENT TASK</div><h2 id="task-title"></h2><div id="task-scope" class="task-scope"></div></div><span id="task-status" class="status"></span></div>
+        <section class="token-metrics" aria-label="LLM token usage">
+          <div class="eyebrow">LLM TOKEN USAGE</div>
+          <dl><div><dt>Input tokens</dt><dd id="input-tokens">—</dd></div><div><dt>Output tokens</dt><dd id="output-tokens">—</dd></div><div><dt>Total tokens</dt><dd id="total-tokens">—</dd></div><div><dt>LLM calls</dt><dd id="llm-calls">—</dd></div></dl>
+          <p id="token-usage-note">No usage recorded.</p>
+        </section>
+        <div id="activity" class="activity" role="log" aria-label="Task activity" aria-live="polite"></div>
+        <div id="input-panel" class="input-panel" hidden>
+          <div class="input-kicker" id="input-kicker">YOUR INPUT</div><h3 id="input-title"></h3><p id="input-description"></p>
+          <form id="reply-form"><label for="reply" id="reply-label">Your answer</label><input id="reply" autocomplete="off" maxlength="16000"><div class="reply-actions"><button id="decline" type="button" class="secondary">Decline</button><button id="submit-reply" type="submit" class="primary">Submit</button></div></form>
+        </div>
+        <div class="task-footer"><span id="task-summary"></span><button id="cancel-task" class="text-button">Cancel task</button></div>
+      </section>
+      <footer class="page-footer"><span>Cloud Agent Assistant Web</span><span id="core-version">OCI · Azure · Google Cloud · AWS</span></footer>
+    </div>
+  </main>
+</body>
+</html>
